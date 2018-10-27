@@ -1,4 +1,4 @@
-# fastplot
+# FastPlot
 
 Create publication-quality plots with a simple interface over matplotlib.
 Are you bored of copying and pasting the code to make a plot every time? Try this!
@@ -40,11 +40,35 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
    * `bars`: plot a bar plot. `data` must be a list of (name, value). `name` is used for the legend.
    * `bars_multi`: plot grouped bars. `data` must be a padas dataframe. Each row is results in a group of bars, while columns determine bars within each group.
    
-   ## Parameters
-   Coming
+   ## Arguments
+   Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
    
-   ## Examples
-   Coming
+**Core**
+* `data`: the input data to plot
+* `path`: the output path for the plot
+* `mode`: which type of plot to create (lines, bars, etc.). More details later.
+
+**Look**
+* `style`: which graphical style to use. Can be `serif`, `sans-serif` or `latex`. For latex, it enables matplotlib latex engine.
+* `figsize`: the size of the output figure
+* `cycler`: the style cycler to use. By default, it changes across main colors, and different linestyles. Change it if you want to change color, line, or point style. I provide some useful cycler in the code (see Cycler section).
+* `fontsize`: just the overall font size.
+
+**Grid**
+
+**Scale**
+
+**Axis**
+
+**Legend**
+
+**Specific**
+   
+   
+ ## Cyclers
+ 
+ ## Examples
+ Coming
   
 
 
