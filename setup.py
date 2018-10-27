@@ -1,0 +1,20 @@
+
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
+setup(
+    name="fastplot",
+    description="Create publication-quality plots with a simple interface over matplotlib.",
+    license="GNU GENERAL PUBLIC LICENSE v3",
+    version="0.1",
+    author="Martino Trevisan",
+    author_email="martino.trevisan@polito.it",
+    maintainer="Martino Trevisan",
+    maintainer_email="martino.trevisan@polito.it",
+    url="https://github.com/marty90/fastplot",
+    download_url = 'https://github.com/marty90/fastplot/tarball/1.0.1',
+    packages=['fastplot'],
+    install_requires=['matplotlib', 'numpy', 'pandas', 'statsmodels']
+)
