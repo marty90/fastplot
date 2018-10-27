@@ -1,0 +1,174 @@
+#!/usr/bin/python3
+
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from cycler import cycler
+import numpy as np
+from statsmodels.distributions.empirical_distribution import ECDF
+
+FIGSIZE=(4,2.25)
+NUM_BIN_CDF=1000
+CYCLER_LINES=(cycler('color', ['r', 'b', 'g', 'y', 'c']) +
+              cycler('linestyle', ['-', '--', '-.', ':', (0, (3, 1, 1, 1)) ]))
+CYCLER_LINESPOINTS=(cycler('color', ['r', 'b', 'g', 'y', 'c']) +
+                    cycler('linestyle', ['-', '--', '-.', ':', (0, (3, 1, 1, 1)) ]) +
+                    cycler('marker', ['o', 's', 'v', 'd', '^' ]))
+CYCLER_POINTS=(cycler('color', ['r', 'b', 'g', 'y', 'c']) +
+               cycler('linestyle', ['', '', '', '', '']) +
+               cycler('marker', ['o', 's', 'v', 'd', '^' ]))
+
+CYCLER_LINES_BLACK=(cycler('color', ['black', 'black', 'black', 'black', 'black']) +
+                    cycler('linestyle', ['-', '--', '-.', ':', (0, (3, 1, 1, 1)) ]))
+CYCLER_LINESPOINTS_BLACK=(cycler('color', ['black', 'black', 'black', 'black', 'black']) +
+                    cycler('linestyle', ['-', '--', '-.', ':', (0, (3, 1, 1, 1)) ]) +
+                    cycler('marker', ['o', 's', 'v', 'd', '^' ]))
+CYCLER_POINTS_BLACK=(cycler('color', ['black', 'black', 'black', 'black', 'black']) +
+               cycler('linestyle', ['', '', '', '', '']) +
+               cycler('marker', ['o', 's', 'v', 'd', '^' ]))
+
+
+def plot(data, path, mode = 'line',
+         style = 'sans-serif', figsize = FIGSIZE, cycler = CYCLER_LINES, fontsize = 11,
+         grid = False, grid_which='major', grid_axis = 'both', grid_linestyle = 'dotted', grid_color = 'black',
+         yscale = 'linear' , xscale = 'linear',
+         xlim = None, ylim = None, xlabel = None, ylabel = None, xticks = None, yticks = None, xticks_rotate = None, yticks_rotate = None, xticks_fontsize='medium', yticks_fontsize='medium', 
+         xtick_direction = 'in', xtick_width = 1, xtick_length = 3, ytick_direction = 'in', ytick_width = 1, ytick_length = 3, 
+         legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True,
+         linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
+         callback = None ):
+
+    # 1. Create and configure plot visual style
+    mpl.rcParams.update(mpl.rcParamsDefault)
+    plt.clf()
+    plt.figure(figsize=figsize)
+    if style == 'latex':
+        plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+        plt.rc('text', usetex=True)
+    elif style == 'serif':
+        plt.rc('font', **{'family': 'serif', 'serif': ['Liberation Serif']})
+    else:
+        plt.rc('font', **{'family': 'sans-serif'})
+    plt.rc('axes', prop_cycle=cycler)
+    plt.rc('font', **{'size': fontsize})
+
+    # 2. Set axis characteristics
+    plt.yscale(yscale)
+    plt.xscale(xscale)
+    if grid:
+        plt.grid(which=grid_which, axis=grid_axis, linestyle=grid_linestyle, color=grid_color)
+
+
+    # 3. Plot
+    if mode == 'line_multi':
+        for name, points in data:
+            plt.plot(points[0], points[1], label = name, markeredgewidth=0, linewidth = linewidth)    
+
+    elif mode == 'line':
+        plt.plot(data[0], data[1], markeredgewidth=0, linewidth = linewidth) 
+
+    elif mode == 'CDF':
+        s = data
+        e = ECDF(s)
+        if xscale == 'log':
+            x = np.logspace(min(s), max(s), NUM_BIN_CDF )
+        else:
+            x = np.linspace(min(s), max(s), NUM_BIN_CDF )
+        y = e(x)
+        plt.plot(x,y, linewidth = linewidth)
+        if ylabel is None:
+            ylabel = 'CDF'
+
+    elif mode == 'CDF_multi':
+        for s_name, s in data :
+            e = ECDF(s)
+            if xscale == 'log':
+                x = np.logspace(min(s), max(s), NUM_BIN_CDF )
+            else:
+                x = np.linspace(min(s), max(s), NUM_BIN_CDF )
+
+            y = e(x)
+            plt.plot(x,y, label=s_name, linewidth = linewidth)
+
+    elif mode == 'boxplot':
+        labels = [e[0] for e in data]
+        samples = [e[1] for e in data]
+        plt.boxplot(samples, labels=labels, sym=boxplot_sym, whis=boxplot_whis)
+
+    elif mode == 'timeseries':
+        plt.plot(data, markeredgewidth=0, linewidth = linewidth) 
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
+    elif mode == 'timeseries_multi':
+        for name, series in data:
+            plt.plot(series, markeredgewidth=0, label = name, linewidth = linewidth) 
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
+    elif mode == 'timeseries_stacked':
+        plt.stackplot(data.index,  np.transpose(data.as_matrix()), lw=0, labels = data.columns)
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
+    elif mode == 'bars':
+        yy = [d[1] for d in data]
+        xticks_labels_from_data = [d[0] for d in data]
+        xx = range(len(yy))
+        plt.bar(xx, yy, linewidth = linewidth, align = 'center', width = bars_width)
+        plt.xticks(xx, xticks_labels_from_data)
+        plt.xlim((-0.5, len(xx) -0.5 )) # Default pretty xlim
+    elif mode == 'bars_multi':
+        xticks_labels_from_data = list(data.index)
+        num_rows = len(data.index)
+        num_columns = len(data.columns)
+        bars_width_real=bars_width/num_columns
+        prop_iter = iter(plt.rcParams['axes.prop_cycle'])
+        for i, column in enumerate( data ):
+            delta = -bars_width/2 + i*bars_width_real + bars_width_real/2
+            plt.bar( [e + delta for e in range(num_rows)], list(data[column]), linewidth = linewidth, align = 'center', width = bars_width_real, label = column, color=next(prop_iter)['color'])
+        plt.xticks(range(num_rows), xticks_labels_from_data)
+        plt.xlim((-0.5, num_rows -0.5 )) # Default pretty xlim
+    elif mode == 'callback':
+        callback(plt)
+
+
+    # 4. Set axis
+    plt.xticks(fontsize=xticks_fontsize)
+    plt.yticks(fontsize=yticks_fontsize)
+
+    if ylabel is not None:
+        plt.ylabel(ylabel)
+    if xlabel is not None:
+        plt.xlabel(xlabel)
+    if xlim is not None:
+        plt.xlim(xlim)
+    if ylim is not None:
+        plt.ylim(ylim)
+    if xticks is not None:
+        plt.xticks(xticks[0], xticks[1])
+    if yticks is not None:
+        plt.yticks(yticks[0], yticks[1])
+    if xticks_rotate is not None:
+        if xticks_rotate > 0:
+            plt.xticks(rotation=xticks_rotate, ha="right")
+        else:
+            plt.xticks(rotation=xticks_rotate, ha="left")
+    if yticks_rotate is not None:
+        if yticks_rotate > 0:
+            plt.yticks(rotation=yticks_rotate, ha="right")
+        else:
+            plt.yticks(rotation=yticks_rotate, ha="left")
+
+    # Tick marker params
+    plt.tick_params(axis = 'x', direction = xtick_direction, width = xtick_width, length = xtick_length )
+    plt.tick_params(axis = 'y', direction = ytick_direction, width = ytick_width, length = ytick_length )
+
+    # 5. Legend
+    if legend:
+        legend = plt.legend(loc=legend_loc, ncol = legend_ncol, fontsize = legend_fontsize, numpoints=1, frameon = legend_frameon)
+        if legend_border == False:
+            legend.get_frame().set_linewidth(0.0)
+
+
+    # 6. Save Fig
+    plt.tight_layout()
+    plt.savefig(path)
+
+    return
+
