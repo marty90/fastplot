@@ -39,7 +39,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
    * `timeseries_stacked`: plot many time series, stacked. `data` must be a pandas dataframe, with a DateTime index. Each column will be plotted stacked to the others. Column names are used in the legend.
    * `bars`: plot a bar plot. `data` must be a list of (name, value). `name` is used for the legend.
    * `bars_multi`: plot grouped bars. `data` must be a padas dataframe. Each row is results in a group of bars, while columns determine bars within each group.
-   
+   * `callback`: call a user function instead of plotting `data`. You must provide a function pointer in the `callback` argument, that will be called passing `plt` as paramenter in order to perform a user defined plot. No matter what you put in `data`.
+      
    ## Arguments
    Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
    
