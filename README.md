@@ -55,6 +55,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `cycler`: the style cycler to use. By default, it changes across main colors, and different linestyles. Change it if you want to change color, line, or point style. I provide some useful cycler in the code (see Cycler section). Default `CYCLER_LINES`
 * `fontsize`: just the overall font size. Default `11`
 * `dpi`: DPI for the output image. Default `300`
+* `classic_autolimit`: Use classic autolimit feature (find 'nice' round numbers as view limits that enclosed the data limits), instead of v2 (sets the view limits to 5% wider than the data range). Default `True`
 
 **Grid**
 * `grid`: whether to display grid. Default `False`
@@ -92,6 +93,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `legend_fontsize`: legend fontsize. Default `medium`
 * `legend_border`: whether to show legend border. Default `False`
 * `legend_frameon`: whether to show legend frame. Default `True`
+* `legend_fancybox`: whether to use round corner on legend frame. Default `False`
+* `legend_frameon`: Transparency of legend frame. Default `1.0`
 
 **Specific**
 This arguments are specific for some `modes`.
