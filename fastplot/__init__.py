@@ -53,6 +53,11 @@ def plot(data, path, mode = 'line',
     plt.rc('axes', prop_cycle=cycler)
     plt.rc('font', **{'size': fontsize})
 
+    # Old default axis lim
+    plt.rcParams['axes.autolimit_mode'] = 'round_numbers'
+    plt.rcParams['axes.xmargin'] = 0
+    plt.rcParams['axes.ymargin'] = 0
+
     # 2. Set axis characteristics
     plt.yscale(yscale)
     plt.xscale(xscale)
