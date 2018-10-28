@@ -79,7 +79,7 @@ def plot(data, path, mode = 'line',
         plt.plot(x,y, linewidth = linewidth)
         if ylabel is None:
             ylabel = 'CDF'
-        if ylim = None:
+        if ylim is None:
             ylim = (0,1)
 
     elif mode == 'CDF_multi':
@@ -95,7 +95,7 @@ def plot(data, path, mode = 'line',
 
         if ylabel is None:
             ylabel = 'CDF'
-        if ylim = None:
+        if ylim is None:
             ylim = (0,1)
 
     elif mode == 'boxplot':
