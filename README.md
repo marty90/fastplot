@@ -54,6 +54,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `figsize`: the size of the output figure. Default: `(4,2.25)`
 * `cycler`: the style cycler to use. By default, it changes across main colors, and different linestyles. Change it if you want to change color, line, or point style. I provide some useful cycler in the code (see Cycler section). Default `CYCLER_LINES`
 * `fontsize`: just the overall font size. Default `11`
+* `dpi`: DPI for the output image. Default `300`
 
 **Grid**
 * `grid`: whether to display grid. Default `False`

@@ -30,7 +30,7 @@ CYCLER_POINTS_BLACK=(cycler('color', ['black', 'black', 'black', 'black', 'black
 
 
 def plot(data, path, mode = 'line',
-         style = 'sans-serif', figsize = FIGSIZE, cycler = CYCLER_LINES, fontsize = 11,
+         style = 'sans-serif', figsize = FIGSIZE, cycler = CYCLER_LINES, fontsize = 11, dpi=300,
          grid = False, grid_which='major', grid_axis = 'both', grid_linestyle = 'dotted', grid_color = 'black',
          yscale = 'linear' , xscale = 'linear',
          xlim = None, ylim = None, xlabel = None, ylabel = None, xticks = None, yticks = None, xticks_rotate = None, yticks_rotate = None, xticks_fontsize='medium', yticks_fontsize='medium', 
@@ -168,7 +168,7 @@ def plot(data, path, mode = 'line',
 
     # 6. Save Fig
     plt.tight_layout()
-    plt.savefig(path)
+    plt.savefig(path, dpi=dpi)
 
     return
 
