@@ -79,6 +79,8 @@ def plot(data, path, mode = 'line',
         plt.plot(x,y, linewidth = linewidth)
         if ylabel is None:
             ylabel = 'CDF'
+        if ylim = None:
+            ylim = (0,1)
 
     elif mode == 'CDF_multi':
         for s_name, s in data :
@@ -90,6 +92,11 @@ def plot(data, path, mode = 'line',
 
             y = e(x)
             plt.plot(x,y, label=s_name, linewidth = linewidth)
+
+        if ylabel is None:
+            ylabel = 'CDF'
+        if ylim = None:
+            ylim = (0,1)
 
     elif mode == 'boxplot':
         labels = [e[0] for e in data]
