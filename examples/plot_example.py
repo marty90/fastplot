@@ -61,7 +61,8 @@ fastplot.plot( [('One', ts), ('Two', ts2)] , 'examples/7_timeseries_multi.png', 
 rng = pd.date_range('1/1/2011', periods=480, freq='H')
 df = pd.DataFrame( np.random.uniform(3,4,size=(len(rng),2)), index=rng, columns=('One', 'Two') )
 df = df.divide(df.sum(axis=1), axis=0)*100
-fastplot.plot( df , 'examples/8_timeseries_stacked.png', mode='timeseries_stacked', ylabel = 'Value [%]', xticks_rotate=30, ylim=(0,100), legend=True)
+fastplot.plot( df , 'examples/8_timeseries_stacked.png', mode='timeseries_stacked', ylabel = 'Value [%]', xticks_rotate=30, ylim=(0,100), legend=True,
+                xlim=(pd.Timestamp('1/1/2011'), pd.Timestamp('1/7/2011')))
 
 
 
@@ -83,7 +84,7 @@ x = range(11)
 y=[120,150,234,465,745,612,554,234,565,888,154]
 def my_callback(plt):
     plt.bar(x,y)
-fastplot.plot([],  'examples/10_callback.png', mode = 'callback', callback = my_callback, style='latex', xlim=(-0.5, 11.5), ylim=(0, 1000))
+fastplot.plot([],  'examples/11_callback.png', mode = 'callback', callback = my_callback, style='latex', xlim=(-0.5, 11.5), ylim=(0, 1000))
 
 
 

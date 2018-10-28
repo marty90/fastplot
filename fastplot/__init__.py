@@ -47,9 +47,9 @@ def plot(data, path, mode = 'line',
         plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
         plt.rc('text', usetex=True)
     elif style == 'serif':
-        plt.rc('font', **{'family': 'serif', 'serif': ['Liberation Serif']})
+        plt.rcParams["font.family"] = "Times New Roman"
     else:
-        plt.rc('font', **{'family': 'sans-serif'})
+        plt.rcParams["font.family"] = "sans-serif"
     plt.rc('axes', prop_cycle=cycler)
     plt.rc('font', **{'size': fontsize})
 
