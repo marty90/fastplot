@@ -85,7 +85,7 @@ def plot(data, path, mode = 'line',
         s = data
         e = ECDF(s)
         if xscale == 'log':
-            x = np.logspace(min(s), max(s), NUM_BIN_CDF )
+            x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
         else:
             x = np.linspace(min(s), max(s), NUM_BIN_CDF )
         y = e(x)
@@ -99,9 +99,9 @@ def plot(data, path, mode = 'line',
         for s_name, s in data :
             e = ECDF(s)
             if xscale == 'log':
-                x = np.logspace(min(s), max(s), NUM_BIN_CDF )
+                x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
             else:
-                x = np.linspace(min(s), max(s), NUM_BIN_CDF )
+                x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
 
             y = e(x)
             plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
