@@ -30,7 +30,7 @@ CYCLER_POINTS_BLACK=(cycler('color', ['black', 'black', 'black', 'black', 'black
 
 
 def plot(data, path, mode = 'line',
-         style = 'sans-serif', figsize = FIGSIZE, cycler = CYCLER_LINES, fontsize = 11, dpi=300, classic_autolimit=True,
+         style = 'sans-serif', figsize = FIGSIZE, cycler = CYCLER_LINES, fontsize = 11, dpi=300, classic_autolimit=True, plot_args = {},
          grid = False, grid_which='major', grid_axis = 'both', grid_linestyle = 'dotted', grid_color = 'black',
          yscale = 'linear' , xscale = 'linear',
          xlim = None, ylim = None, xlabel = None, ylabel = None, xticks = None, yticks = None, xticks_rotate = None, yticks_rotate = None, xticks_fontsize='medium', yticks_fontsize='medium', 
@@ -69,10 +69,11 @@ def plot(data, path, mode = 'line',
     # 3. Plot
     if mode == 'line_multi':
         for name, points in data:
-            plt.plot(points[0], points[1], label = name, markeredgewidth=0, linewidth = linewidth)    
+            plt.plot(points[0], points[1], label = name, markeredgewidth=0,
+                     linewidth = linewidth, **plot_args)    
 
     elif mode == 'line':
-        plt.plot(data[0], data[1], markeredgewidth=0, linewidth = linewidth) 
+        plt.plot(data[0], data[1], markeredgewidth=0, linewidth = linewidth, **plot_args) 
 
     elif mode == 'CDF':
         s = data
@@ -82,7 +83,7 @@ def plot(data, path, mode = 'line',
         else:
             x = np.linspace(min(s), max(s), NUM_BIN_CDF )
         y = e(x)
-        plt.plot(x,y, linewidth = linewidth)
+        plt.plot(x,y, linewidth = linewidth, **plot_args)
         if ylabel is None:
             ylabel = 'CDF'
         if ylim is None:
@@ -97,7 +98,7 @@ def plot(data, path, mode = 'line',
                 x = np.linspace(min(s), max(s), NUM_BIN_CDF )
 
             y = e(x)
-            plt.plot(x,y, label=s_name, linewidth = linewidth)
+            plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
 
         if ylabel is None:
             ylabel = 'CDF'
@@ -107,23 +108,23 @@ def plot(data, path, mode = 'line',
     elif mode == 'boxplot':
         labels = [e[0] for e in data]
         samples = [e[1] for e in data]
-        plt.boxplot(samples, labels=labels, sym=boxplot_sym, whis=boxplot_whis)
+        plt.boxplot(samples, labels=labels, sym=boxplot_sym, whis=boxplot_whis, **plot_args)
 
     elif mode == 'timeseries':
-        plt.plot(data, markeredgewidth=0, linewidth = linewidth) 
+        plt.plot(data, markeredgewidth=0, linewidth = linewidth, **plot_args) 
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
     elif mode == 'timeseries_multi':
         for name, series in data:
-            plt.plot(series, markeredgewidth=0, label = name, linewidth = linewidth) 
+            plt.plot(series, markeredgewidth=0, label = name, linewidth = linewidth, **plot_args) 
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
     elif mode == 'timeseries_stacked':
-        plt.stackplot(data.index,  np.transpose(data.as_matrix()), lw=0, labels = data.columns)
+        plt.stackplot(data.index,  np.transpose(data.as_matrix()), lw=0, labels = data.columns, **plot_args)
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
     elif mode == 'bars':
         yy = [d[1] for d in data]
         xticks_labels_from_data = [d[0] for d in data]
         xx = range(len(yy))
-        plt.bar(xx, yy, linewidth = linewidth, align = 'center', width = bars_width)
+        plt.bar(xx, yy, linewidth = linewidth, align = 'center', width = bars_width, **plot_args)
         plt.xticks(xx, xticks_labels_from_data)
         plt.xlim((-0.5, len(xx) -0.5 )) # Default pretty xlim
     elif mode == 'bars_multi':
@@ -134,7 +135,9 @@ def plot(data, path, mode = 'line',
         prop_iter = iter(plt.rcParams['axes.prop_cycle'])
         for i, column in enumerate( data ):
             delta = -bars_width/2 + i*bars_width_real + bars_width_real/2
-            plt.bar( [e + delta for e in range(num_rows)], list(data[column]), linewidth = linewidth, align = 'center', width = bars_width_real, label = column, color=next(prop_iter)['color'])
+            plt.bar( [e + delta for e in range(num_rows)], list(data[column]), linewidth = linewidth,
+                     align = 'center', width = bars_width_real, label = column,
+                     color=next(prop_iter)['color'], **plot_args)
         plt.xticks(range(num_rows), xticks_labels_from_data)
         plt.xlim((-0.5, num_rows -0.5 )) # Default pretty xlim
     elif mode == 'callback':
