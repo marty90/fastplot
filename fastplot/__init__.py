@@ -30,12 +30,12 @@ CYCLER_POINTS_BLACK=(cycler('color', ['black', 'black', 'black', 'black', 'black
 
 
 def plot(data, path, mode = 'line',
-         style = 'sans-serif', figsize = FIGSIZE, cycler = CYCLER_LINES, fontsize = 11, dpi=300, classic_autolimit=True, plot_args = {},
+         style = 'sans-serif', figsize = FIGSIZE, cycler = CYCLER_LINES, fontsize = 11, dpi=300, classic_autolimit=True, rcParams={}, plot_args = {},
          grid = False, grid_which='major', grid_axis = 'both', grid_linestyle = 'dotted', grid_color = 'black',
          yscale = 'linear' , xscale = 'linear',
          xlim = None, ylim = None, xlabel = None, ylabel = None, xticks = None, yticks = None, xticks_rotate = None, yticks_rotate = None, xticks_fontsize='medium', yticks_fontsize='medium', 
          xtick_direction = 'in', xtick_width = 1, xtick_length = 3, ytick_direction = 'in', ytick_width = 1, ytick_length = 3, 
-         legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True, legend_fancybox = False, legend_alpha=1.0,
+         legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True, legend_fancybox = False, legend_alpha=1.0, legend_args = {},
          linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
          callback = None ):
 
@@ -43,13 +43,7 @@ def plot(data, path, mode = 'line',
     mpl.rcParams.update(mpl.rcParamsDefault)
     plt.clf()
     plt.figure(figsize=figsize)
-    if style == 'latex':
-        plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
-        plt.rc('text', usetex=True)
-    elif style == 'serif':
-        plt.rcParams["font.family"] = "Times New Roman"
-    else:
-        plt.rcParams["font.family"] = "sans-serif"
+
     plt.rc('axes', prop_cycle=cycler)
     plt.rc('font', **{'size': fontsize})
 
@@ -58,6 +52,18 @@ def plot(data, path, mode = 'line',
         plt.rcParams['axes.autolimit_mode'] = 'round_numbers'
         plt.rcParams['axes.xmargin'] = 0
         plt.rcParams['axes.ymargin'] = 0
+
+    if style == 'latex':
+        plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+        plt.rc('text', usetex=True)
+    elif style == 'serif':
+        plt.rcParams["font.family"] = "Times New Roman"
+    elif style == 'sans-serif':
+        plt.rcParams["font.family"] = "sans-serif"
+
+    # Set custom rcparams
+    plt.rcParams.update(rcParams)
+
 
     # 2. Set axis characteristics
     plt.yscale(yscale)
@@ -177,11 +183,10 @@ def plot(data, path, mode = 'line',
 
     # 5. Legend
     if legend:
-        legend = plt.legend(loc=legend_loc, ncol = legend_ncol, fontsize = legend_fontsize, numpoints=1, frameon = legend_frameon, fancybox=legend_fancybox)
+        legend = plt.legend(loc=legend_loc, ncol = legend_ncol, fontsize = legend_fontsize, numpoints=1, frameon = legend_frameon, fancybox=legend_fancybox, **legend_args)
+        legend.get_frame().set_alpha(legend_alpha)
         if legend_border == False:
             legend.get_frame().set_linewidth(0.0)
-        legend.get_frame().set_alpha(legend_alpha)
-
 
     # 6. Save Fig
     plt.tight_layout()

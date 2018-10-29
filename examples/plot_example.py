@@ -90,7 +90,8 @@ data = pd.DataFrame( [[2,5,9], [3,5,7], [1,6,9], [3,6,8], [2,6,8]],
                      index = ['One', 'Two', 'Three', 'Four', 'Five'],
                      columns = ['A', 'B', 'C'] )
 fastplot.plot(data,  'examples/10_bars_multi.png', mode = 'bars_multi', style='latex',
-              ylabel = 'Value', legend = True, ylim = (0,12), legend_ncol=3)
+              ylabel = 'Value', legend = True, ylim = (0,12), legend_ncol=3,
+              legend_args={'markerfirst' : False})
 
 
 

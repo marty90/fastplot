@@ -48,7 +48,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `data`: the input data to plot
 * `path`: the output path for the plot
 * `mode`: which type of plot to create (lines, bars, etc.). More details later. Default `line`
-* `plot_args`: an optional dictionary of arguments to pass the the plot function.
+* `plot_args`: an optional dictionary of arguments to pass the plot function.
 
 **Look**
 * `style`: which graphical style to use. Can be `serif`, `sans-serif` or `latex`. For latex, it enables matplotlib latex engine. Default `sans-serif`
@@ -57,6 +57,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `fontsize`: just the overall font size. Default `11`
 * `dpi`: DPI for the output image. Default `300`
 * `classic_autolimit`: Use classic autolimit feature (find 'nice' round numbers as view limits that enclosed the data limits), instead of v2 (sets the view limits to 5% wider than the data range). Default `True`
+* `rcParams`: optional dictionary of rcParams to set before plotting
+
 
 **Grid**
 * `grid`: whether to display grid. Default `False`
@@ -95,7 +97,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `legend_border`: whether to show legend border. Default `False`
 * `legend_frameon`: whether to show legend frame. Default `True`
 * `legend_fancybox`: whether to use round corner on legend frame. Default `False`
-* `legend_frameon`: Transparency of legend frame. Default `1.0`
+* `legend_frameon`: transparency of legend frame. Default `1.0`
+* `legend_args`: an optional dictionary of arguments to pass the `legend` function.
 
 **Specific**
 This arguments are specific for some `modes`.
@@ -222,7 +225,8 @@ data = pd.DataFrame( [[2,5,9], [3,5,7], [1,6,9], [3,6,8], [2,6,8]],
                      index = ['One', 'Two', 'Three', 'Four', 'Five'],
                      columns = ['A', 'B', 'C'] )
 fastplot.plot(data,  'examples/10_bars_multi.png', mode = 'bars_multi', style='latex',
-              ylabel = 'Value', legend = True, ylim = (0,12), legend_ncol=3)
+              ylabel = 'Value', legend = True, ylim = (0,12), legend_ncol=3,
+              legend_args={'markerfirst' : False})
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/10_bars_multi.png"  height="200">
 
