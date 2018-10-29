@@ -107,6 +107,16 @@ This arguments are specific for some `modes`.
 * `callback`: function to call instead of plotting, when `mode=callback`
    
  ## Cyclers
+
+FastPlot provides simple cyclers to obtain nice lines, points, and linespoints in both color and B/W.
+
+The list of available cyclers is:
+* `fastplot.CYCLER_LINES`: Lines, with colors
+* `fastplot.CYCLER_LINESPOINTS`: Linespoints, with colors
+* `fastplot.CYCLER_POINTS`: Points, with colors
+* `fastplot.CYCLER_LINES_BLACK`: Black lines
+* `fastplot.CYCLER_LINESPOINTS_BLACK`: Black linespoints
+* `fastplot.CYCLER_POINTS_BLACK`: Black points
  
  ## Examples
 
