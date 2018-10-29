@@ -22,7 +22,7 @@ This module has only one function, called `plot`. You must call it to make a plo
 
 The most important arguments are:
 * `data`: the actual data to plot
-* `path`: the output path for the plot
+* `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path.
 * `mode`: which type of plot to create (lines, bars, etc.). More details later.
 * `stlye`: which graphical style to use. Can be `serif`, `sans-serif` or `latex`.
 
@@ -46,7 +46,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
    
 **Core**
 * `data`: the input data to plot
-* `path`: the output path for the plot
+* `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path.
 * `mode`: which type of plot to create (lines, bars, etc.). More details later. Default `line`
 * `plot_args`: an optional dictionary of arguments to pass the plot function.
 

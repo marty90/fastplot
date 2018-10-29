@@ -58,7 +58,7 @@ def plot(data, path, mode = 'line',
         plt.rc('text', usetex=True)
     elif style == 'serif':
         plt.rcParams["font.family"] = "Times New Roman"
-    elif style == 'sans-serif':
+    else:
         plt.rcParams["font.family"] = "sans-serif"
 
     # Set custom rcparams
@@ -119,13 +119,16 @@ def plot(data, path, mode = 'line',
     elif mode == 'timeseries':
         plt.plot(data, markeredgewidth=0, linewidth = linewidth, **plot_args) 
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
+
     elif mode == 'timeseries_multi':
         for name, series in data:
             plt.plot(series, markeredgewidth=0, label = name, linewidth = linewidth, **plot_args) 
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
+
     elif mode == 'timeseries_stacked':
         plt.stackplot(data.index,  np.transpose(data.as_matrix()), lw=0, labels = data.columns, **plot_args)
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
+
     elif mode == 'bars':
         yy = [d[1] for d in data]
         xticks_labels_from_data = [d[0] for d in data]
@@ -133,6 +136,7 @@ def plot(data, path, mode = 'line',
         plt.bar(xx, yy, linewidth = linewidth, align = 'center', width = bars_width, **plot_args)
         plt.xticks(xx, xticks_labels_from_data)
         plt.xlim((-0.5, len(xx) -0.5 )) # Default pretty xlim
+
     elif mode == 'bars_multi':
         xticks_labels_from_data = list(data.index)
         num_rows = len(data.index)
@@ -146,6 +150,7 @@ def plot(data, path, mode = 'line',
                      color=next(prop_iter)['color'], **plot_args)
         plt.xticks(range(num_rows), xticks_labels_from_data)
         plt.xlim((-0.5, num_rows -0.5 )) # Default pretty xlim
+
     elif mode == 'callback':
         callback(plt)
 
