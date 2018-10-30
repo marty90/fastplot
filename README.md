@@ -103,7 +103,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `legend_frameon`: whether to show legend frame. Default `True`
 * `legend_fancybox`: whether to use round corner on legend frame. Default `False`
 * `legend_frameon`: transparency of legend frame. Default `1.0`
-* `legend_args`: an optional dictionary of arguments to pass the `legend` function.
+* `legend_args`: an optional dictionary of arguments to pass the `legend` function. For example you might want to manually set legend location by passing `legend_args={'bbox_to_anchor' : (0.9, 0.1)}`.
 
 **Specific**
 This arguments are specific for some `modes`.
