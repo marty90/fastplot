@@ -53,7 +53,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `data`: the input data to plot
 * `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path.
 * `mode`: which type of plot to create (lines, bars, etc.). More details later. Default `line`
-* `plot_args`: an optional dictionary of arguments to pass the plot function.
+* `plot_args`: an optional dictionary of arguments to pass the `matplotlib` plot() function.
 
 **Look**
 * `style`: which graphical style to use. Can be `serif`, `sans-serif` or `latex`. For latex, it enables matplotlib latex engine. Default `sans-serif`
@@ -103,7 +103,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `legend_frameon`: whether to show legend frame. Default `True`
 * `legend_fancybox`: whether to use round corner on legend frame. Default `False`
 * `legend_frameon`: transparency of legend frame. Default `1.0`
-* `legend_args`: an optional dictionary of arguments to pass the `legend` function. For example you might want to manually set legend location by passing `legend_args={'bbox_to_anchor' : (0.9, 0.1)}`.
+* `legend_args`: an optional dictionary of arguments to pass the `matplotlib` legend() function. For example you might want to manually set legend location by passing `legend_args={'bbox_to_anchor' : (0.9, 0.1)}`.
 
 **Specific**
 This arguments are specific for some `modes`.
