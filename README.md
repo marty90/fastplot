@@ -24,7 +24,7 @@ The most important arguments are:
 * `data`: the actual data to plot
 * `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path.
 * `mode`: which type of plot to create (lines, bars, etc.). More details later.
-* `stlye`: which graphical style to use. Can be:
+* `style`: which graphical style to use. Can be:
     * `sans-serif`: classical sans-serif, Arial-like font.
     * `serif`: use Times New Roman. Good for IEEE papers. You must have Times New Roman installed.
     * `latex`: tells `matplotlib` to use latex to render text. You must have `latex` installed. FastPlot has a utlity function called `fastplot.tex_escape()` to easily escape Tex strings.
