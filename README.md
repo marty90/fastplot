@@ -15,7 +15,7 @@ Simply clone this repo or use:
 pip install git+https://github.com/marty90/fastplot
 ```
 
-Dependencies are: `matplotlib numpy pandas statsmodels`.
+Dependencies are: `matplotlib numpy pandas statsmodels`. FastPlot requires updated versions of such libraries, so, in case of error try first to upgrade them.
 
 ## Usage
 This module has only one function, called `plot`. You must call it to make a plot, providing the data, the output file name, and other parameters. A figure will be saved on disk.
