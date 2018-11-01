@@ -152,6 +152,21 @@ def plot(data, path, mode = 'line',
         plt.xticks(range(num_rows), xticks_labels_from_data)
         plt.xlim((-0.5, num_rows -0.5 )) # Default pretty xlim
 
+    elif mode == 'bars_stacked':
+        xticks_labels_from_data = list(data.index)
+        num_rows = len(data.index)
+        num_columns = len(data.columns)
+        prop_iter = iter(plt.rcParams['axes.prop_cycle'])
+        bottom = np.zeros(num_rows)
+        for i, column in enumerate( data ):
+            plt.bar(range(num_rows), list(data[column]), bottom=bottom, linewidth = linewidth,
+                     align = 'center', width = bars_width, label = column,
+                     color=next(prop_iter)['color'], **plot_args)
+            bottom = np.add(bottom, list(data[column]))
+            
+        plt.xticks(range(num_rows), xticks_labels_from_data)
+        plt.xlim((-0.5, num_rows -0.5 )) # Default pretty xlim
+
     elif mode == 'callback':
         callback(plt)
 

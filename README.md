@@ -34,18 +34,20 @@ The most important arguments are:
 ## Modes
 
 The modes are the type of plots fastplot allows to use. Some are simple (just a line), other are more advanced (bars, etc.).
- * `line`: plot a simple line. `data` must be a two-sized tuple of lists, for x and y. E.g., ([x1,x2,x3],[y1,y2,y3])
- * `line_multi`: plot multiple lines. Data must have the form [ (line1, ([x1,x2], [y1,y2])), (line2, ([x1,x2], [y1,y2]) ) ]. The names `line1` and `line2` are put in the legend.
- * `CDF`: plot a CDF given the samples. `data` must be a list of scalars.
- * `CDF_multi`: plot many CDFs given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the legend.
-  * `boxplot`: plota boxplot given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the xticks labels.
-  * `timeseries`: plot a time series. `data` must be a pandas series, with a DateTime index.
-  * `timeseries_multi`: plot many time series. `data` must be a list of two-sized tuples like (name, timeseries). `name` is used in the legend.
-   * `timeseries_stacked`: plot many time series, stacked. `data` must be a pandas dataframe, with a DateTime index. Each column will be plotted stacked to the others. Column names are used in the legend.
-   * `bars`: plot a bar plot. `data` must be a list of (name, value). `name` is used for the legend.
-   * `bars_multi`: plot grouped bars. `data` must be a padas dataframe. Each row is results in a group of bars, while columns determine bars within each group.
-   * `callback`: call a user function instead of plotting `data`. You must provide a function pointer in the `callback` argument, that will be called passing `plt` as paramenter in order to perform a user defined plot. No matter what you put in `data`.
+* `line`: plot a simple line. `data` must be a two-sized tuple of lists, for x and y. E.g., ([x1,x2,x3],[y1,y2,y3])
+* `line_multi`: plot multiple lines. Data must have the form [ (line1, ([x1,x2], [y1,y2])), (line2, ([x1,x2], [y1,y2]) ) ]. The names `line1` and `line2` are put in the legend.
+* `CDF`: plot a CDF given the samples. `data` must be a list of scalars.
+* `CDF_multi`: plot many CDFs given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the legend.
+* `boxplot`: plota boxplot given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the xticks labels.
+* `timeseries`: plot a time series. `data` must be a pandas series, with a DateTime index.
+* `timeseries_multi`: plot many time series. `data` must be a list of two-sized tuples like (name, timeseries). `name` is used in the legend.
+* `timeseries_stacked`: plot many time series, stacked. `data` must be a pandas dataframe, with a DateTime index. Each column will be plotted stacked to the others. Column names are used in the legend.
+* `bars`: plot a bar plot. `data` must be a list of (name, value). `name` is used for the legend.
+* `bars_multi`: plot grouped bars. `data` must be a padas dataframe. Each row is results in a group of bars, while columns determine bars within each group.
+* `bars_stacked`: plot stacked bars. `data` must be a padas dataframe. Rows go on x axis, while each column is a level in the bars.
+* `callback`: call a user function instead of plotting `data`. You must provide a function pointer in the `callback` argument, that will be called passing `plt` as paramenter in order to perform a user defined plot. No matter what you put in `data`.
       
+
    ## Arguments
    Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
    
@@ -234,6 +236,17 @@ fastplot.plot(data,  'examples/10_bars_multi.png', mode = 'bars_multi', style='l
               legend_args={'markerfirst' : False})
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/10_bars_multi.png"  height="200">
+
+**bars_stacked**
+```
+data = pd.DataFrame( [[2,5,9], [3,5,7], [1,6,9], [3,6,3], [2,6,2]],
+                     index = ['One', 'Two', 'Three', 'Four', 'Five'],
+                     columns = ['A', 'B', 'C'] )
+fastplot.plot(data,  'examples/12_bars_stacked.png', mode = 'bars_stacked', style='serif',
+              ylabel = 'Value', legend = True, xtick_length=0, legend_ncol=3, ylim = (0,25))
+```
+<img src="https://github.com/marty90/fastplot/raw/master/examples/12_bars_stacked.png"  height="200">
+
 
 
 **callback**

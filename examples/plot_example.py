@@ -95,6 +95,13 @@ fastplot.plot(data,  'examples/10_bars_multi.png', mode = 'bars_multi', style='l
 
 
 
+data = pd.DataFrame( [[2,5,9], [3,5,7], [1,6,9], [3,6,3], [2,6,2]],
+                     index = ['One', 'Two', 'Three', 'Four', 'Five'],
+                     columns = ['A', 'B', 'C'] )
+fastplot.plot(data,  'examples/12_bars_stacked.png', mode = 'bars_stacked', style='serif',
+              ylabel = 'Value', legend = True, xtick_length=0, legend_ncol=3, ylim = (0,25))
+
+
 
 x = range(11)
 y=[120,150,234,465,745,612,554,234,565,888,154]
