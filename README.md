@@ -59,8 +59,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `callback`: call a user function instead of plotting `data`. You must provide a function pointer in the `callback` argument, that will be called passing `plt` as paramenter in order to perform a user defined plot. No matter what you put in `data`.
       
 
-   ## Arguments
-   Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
+ ## Arguments
+ Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
    
 **Core**
 * `data`: the input data to plot
