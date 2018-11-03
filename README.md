@@ -8,6 +8,17 @@ This module provides only one (highly customizable) function to plot some data. 
 For information about this Readme file and this tool please write to
 [martino.trevisan@polito.it](mailto:martino.trevisan@polito.it)
 
+## Table of Content
+<!---
+Done with https://github.com/ekalinin/github-markdown-toc )
+-->
+   * [Installation](#installation)
+   * [Usage](#usage)
+   * [Modes](#modes)
+   * [Arguments](#arguments)
+   * [Cyclers](#cyclers)
+   * [Examples](#examples)
+
 ## Installation
 
 Simply clone this repo or use:
