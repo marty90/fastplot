@@ -27,6 +27,10 @@ pip install git+https://github.com/marty90/fastplot
 ```
 
 Dependencies are: `matplotlib numpy pandas statsmodels`. FastPlot requires updated versions of such libraries, so, in case of error try first to upgrade them.
+For `serif` fonts you need `Times New Roman`, that, on Ubuntu, can be installed with:
+```
+sudo apt-get install msttcorefonts
+```
 
 ## Usage
 This module has only one function, called `plot`. You must call it to make a plot, providing the data, the output file name, and other parameters. A figure will be saved on disk.
@@ -40,6 +44,7 @@ The most important arguments are:
     * `serif`: use Times New Roman. Good for IEEE papers. You must have Times New Roman installed.
     * `latex`: tells `matplotlib` to use latex to render text. You must have `latex` installed. FastPlot has a utlity function called `fastplot.tex_escape()` to easily escape Tex strings.
     * Note: if you want to use the Linux Libertine font (e.g., used in ACM papers), you can use the `latex` style and pass the argument `rcParams={'text.latex.preamble'}: r'\usepackage{libertine}'}` to the `fastplot.plot()` function.
+    * Note 2: if you want to use `Times New Roman` with Latex (very good for IEEE papers), you can use the `latex` style and pass the argument `rcParams={'text.latex.preamble'}: r'\usepackage{mathptmx}'}` to the `fastplot.plot()` function.
 
 
 ## Modes
