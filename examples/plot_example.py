@@ -62,7 +62,7 @@ ts2 = pd.Series(np.random.randn(len(rng)), index=rng) + 10
 fastplot.plot( [('One', ts), ('Two', ts2)] , 'examples/7_timeseries_multi.png',
                mode='timeseries_multi', ylabel = 'Value', xticks_rotate=30,
                legend = True, legend_loc='upper center', legend_ncol=2, legend_frameon=False,
-               ylim = (0,16), xticks_fontsize='small')
+               ylim = (0,None), xticks_fontsize='small')
 
 
 

@@ -95,8 +95,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `yscale`: scale for y axis (linear/log). Default `linear`
          
 **Axis**
-* `xlim`: Optional x limit, as a tuple (low, high)
-* `ylim`: Optional y limit, as a tuple (low, high)
+* `xlim`: Optional x limit, as a tuple (low, high). You can set `low` or `high` to `None` if you don't want to modify it.
+* `ylim`: Optional y limit, as a tuple (low, high). You can set `low` or `high` to `None` if you don't want to modify it.
 * `xlabel`: Label for x axis
 * `ylabel`: Label for y axis
 * `xticks`: Custom x ticks, in the form ([x1, x2, ...], [label1, label2, ...])
@@ -216,7 +216,7 @@ ts2 = pd.Series(np.random.randn(len(rng)), index=rng) + 10
 fastplot.plot( [('One', ts), ('Two', ts2)] , 'examples/7_timeseries_multi.png',
                mode='timeseries_multi', ylabel = 'Value', xticks_rotate=30,
                legend = True, legend_loc='upper center', legend_ncol=2, legend_frameon=False,
-               ylim = (0,16), xticks_fontsize='small')
+               ylim = (0,None), xticks_fontsize='small')
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/7_timeseries_multi.png"  height="200">
 
