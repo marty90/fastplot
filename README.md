@@ -3,7 +3,7 @@
 Create publication-quality plots with a simple interface over matplotlib.
 Are you bored of copying and pasting the code to make a plot every time? Try this!
 
-This module provides only one (highly customizable) function to plot some data. It use `matplotlib` in its internal, but, using arguments, helps in setting all graphical and plot paramenters (tick rotate, font, size, etc.).
+This module provides only one (highly customizable) function to plot some data. It uses `matplotlib` in its internal, but helps in setting all graphical and plot paramenters (tick rotate, font, size, etc.).
 
 For information about this Readme file and this tool please write to
 [martino.trevisan@polito.it](mailto:martino.trevisan@polito.it)
