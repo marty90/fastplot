@@ -101,10 +101,13 @@ def plot(data, path, mode = 'line',
             e = ECDF(s)
             if xscale == 'log':
                 x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
+                y = e(x)
             else:
                 x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
+                y = e(x)
+                np.concatenate( np.array([min(s)]), x )
+                np.concatenate( np.array([0]), y )
 
-            y = e(x)
             plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
 
         if ylabel is None:
