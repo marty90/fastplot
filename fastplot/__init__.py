@@ -106,8 +106,8 @@ def plot(data, path, mode = 'line',
                 x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
                 y = e(x)
                 # Fix initial point
-                x = np.concatenate( np.array([min(s)]), x )
-                y = np.concatenate( np.array([0]), y )
+                x = np.concatenate( (np.array([min(s)]), x) )
+                y = np.concatenate( (np.array([0]), y) )
 
             plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
 
