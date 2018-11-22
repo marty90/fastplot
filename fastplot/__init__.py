@@ -222,6 +222,7 @@ def plot(data, path, mode = 'line',
     # 6. Save Fig
     plt.tight_layout()
     plt.savefig(path, dpi=dpi)
+    plt.close()
 
     return
 
