@@ -99,8 +99,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `ylim`: Optional y limit, as a tuple (low, high). You can set `low` or `high` to `None` if you don't want to modify it.
 * `xlabel`: Label for x axis
 * `ylabel`: Label for y axis
-* `xticks`: Custom x ticks, in the form ([x1, x2, ...], [label1, label2, ...])
-* `yticks`:  Custom y ticks, in the form ([y1, y2, ...], [label1, label2, ...])
+* `xticks`: Custom x ticks, in the form `([x1, x2, ...], [label1, label2, ...])`. You can pass `([x1, x2, ...], None)` if you just want to set the xticks, without specifying the labels.
+* `yticks`:  Custom y ticks, in the form `([y1, y2, ...], [label1, label2, ...])` You can pass `([y1, y2, ...], None)` if you just want to set the yticks, without specifying the labels.
 * `xticks_rotate`: Rotation for x ticks. Default `0`
 * `yticks_rotate`:  Rotation for y ticks. Default `0`
 * `xticks_fontsize`: X ticks font size. Default `medium`
