@@ -221,10 +221,14 @@ def plot(data, path, mode = 'line',
 
     # 6. Save Fig
     plt.tight_layout()
-    plt.savefig(path, dpi=dpi)
-    plt.close()
 
-    return
+    # Handle Interactive Plot
+    if path is not None:
+        plt.savefig(path, dpi=dpi)
+        plt.close()
+        return
+    else:
+        return plt
 
 # Thanks to: https://stackoverflow.com/a/25875504/6018688
 def tex_escape(text):
