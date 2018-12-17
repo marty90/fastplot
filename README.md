@@ -45,7 +45,7 @@ import fastplot
 
 The most important arguments are:
 * `data`: the actual data to plot
-* `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path. Put it to `None` to have the current `plt` object returned.
+* `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path. Put it to `None` to have the current `plt` object returned and no file written.
 * `mode`: which type of plot to create (lines, bars, etc.). More details later.
 * `style`: which graphical style to use. Can be:
     * `sans-serif`: classical sans-serif, Arial-like font.
@@ -77,7 +77,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
    
 **Core**
 * `data`: the input data to plot
-* `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path.
+* `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path. Put it to `None` to have the current `plt` object returned and no file written.
 * `mode`: which type of plot to create (lines, bars, etc.). More details later. Default `line`
 * `plot_args`: an optional dictionary of arguments to pass the `matplotlib` plot() function.
 
