@@ -20,4 +20,5 @@ setup(
 )
 
 # Upload on pip with:
+# python setup.py sdist
 # twine upload dist/*
