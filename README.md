@@ -139,7 +139,9 @@ This arguments are specific for some `modes`.
 * `timeseries_format`: format for printing dates in timeseries. Default `%Y/%m/%d`
 * `bars_width`: width of bars when bars are plotted. Default `0.6`
 * `callback`: function to call instead of plotting, when `mode=callback`
-   
+* `timeseries_stacked_right_legend_order`: for `timeseries_stacked`, plot legend in the same order as colors are shown in the plot. Default is `True`.
+
+
  ## Cyclers
 
 FastPlot provides simple cyclers to obtain nice lines, points, and linespoints in both color and B/W.

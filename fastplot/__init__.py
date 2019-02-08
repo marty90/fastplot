@@ -38,7 +38,7 @@ def plot(data, path, mode = 'line',
          xtick_direction = 'in', xtick_width = 1, xtick_length = 3, ytick_direction = 'in', ytick_width = 1, ytick_length = 3, 
          legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True, legend_fancybox = False, legend_alpha=1.0, legend_args = {},
          linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
-         callback = None ):
+         callback = None, timeseries_stacked_right_legend_order=True ):
 
     # 1. Create and configure plot visual style
     mpl.rcParams.update(mpl.rcParamsDefault)
@@ -214,10 +214,23 @@ def plot(data, path, mode = 'line',
 
     # 5. Legend
     if legend:
-        legend = plt.legend(loc=legend_loc, ncol = legend_ncol, fontsize = legend_fontsize, numpoints=1, frameon = legend_frameon, fancybox=legend_fancybox, **legend_args)
+        legend = plt.legend(loc=legend_loc, ncol = legend_ncol, fontsize = legend_fontsize,
+                            numpoints=1, frameon = legend_frameon, fancybox=legend_fancybox,
+                            **legend_args)
         legend.get_frame().set_alpha(legend_alpha)
         if legend_border == False:
             legend.get_frame().set_linewidth(0.0)
+
+        # Handle timeseries_stacked_right_legend_order
+        if mode == 'timeseries_stacked' and timeseries_stacked_right_legend_order: 
+            handles, labels = plt.gca().get_legend_handles_labels()
+            legend = plt.gca().legend(handles[::-1], labels[::-1], loc=legend_loc, ncol = legend_ncol,
+                                fontsize = legend_fontsize, numpoints=1, frameon = legend_frameon,
+                                fancybox=legend_fancybox, **legend_args) 
+            legend.get_frame().set_alpha(legend_alpha)
+            if legend_border == False:
+                legend.get_frame().set_linewidth(0.0)
+
 
     # 6. Save Fig
     plt.tight_layout()
