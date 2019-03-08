@@ -28,6 +28,9 @@ fastplot.plot(np.random.normal(100, 30, 1000), 'examples/3_CDF.png', mode='CDF',
               xlabel = 'Data', style='latex')
 
 
+fastplot.plot(np.random.normal(100, 30, 1000), 'examples/3b_CCDF.png', mode='CDF', 
+              CDF_complementary=True, xlabel = 'Data', style='latex')
+
 
 data = [ ('A', np.random.normal(100, 30, 1000)), ('B', np.random.normal(140, 50, 1000)) ]
 plot_args={"markevery": [500]}

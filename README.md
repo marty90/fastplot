@@ -60,7 +60,7 @@ The most important arguments are:
 The modes are the type of plots fastplot allows to use. Some are simple (just a line), other are more advanced (bars, etc.).
 * `line`: plot a simple line. `data` must be a two-sized tuple of lists, for x and y. E.g., ([x1,x2,x3],[y1,y2,y3])
 * `line_multi`: plot multiple lines. Data must have the form [ (line1, ([x1,x2], [y1,y2])), (line2, ([x1,x2], [y1,y2]) ) ]. The names `line1` and `line2` are put in the legend.
-* `CDF`: plot a CDF given the samples. `data` must be a list of scalars.
+* `CDF`: plot a CDF given the samples. `data` must be a list of scalars. Note: if your CDF is too coarse grained, you can increase the resolution increasing `fastplot.NUM_BIN_CDF`.
 * `CDF_multi`: plot many CDFs given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the legend.
 * `boxplot`: plota boxplot given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the xticks labels.
 * `timeseries`: plot a time series. `data` must be a pandas series, with a DateTime index.
@@ -140,7 +140,7 @@ This arguments are specific for some `modes`.
 * `bars_width`: width of bars when bars are plotted. Default `0.6`
 * `callback`: function to call instead of plotting, when `mode=callback`
 * `timeseries_stacked_right_legend_order`: for `timeseries_stacked`, plot legend in the same order as colors are shown in the plot. Default is `True`.
-
+* `CDF_complementary`: for `CDF` and `CDF_multi`, plot complementary CDF instead of the plain one. Default is `False`.
 
  ## Cyclers
 
@@ -184,6 +184,15 @@ fastplot.plot(np.random.normal(100, 30, 1000), 'examples/3_CDF.png', mode='CDF',
               xlabel = 'Data', style='latex')
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/3_CDF.png"  height="200">
+
+
+**CDF complementary**
+```
+fastplot.plot(np.random.normal(100, 30, 1000), 'examples/3b_CCDF.png', mode='CDF', 
+              CDF_complementary=True, xlabel = 'Data', style='latex')
+```
+<img src="https://github.com/marty90/fastplot/raw/master/examples/3b_CCDF.png"  height="200">
+
 
 
 **CDF_multi**

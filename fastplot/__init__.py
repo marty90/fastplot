@@ -38,7 +38,7 @@ def plot(data, path, mode = 'line',
          xtick_direction = 'in', xtick_width = 1, xtick_length = 3, ytick_direction = 'in', ytick_width = 1, ytick_length = 3, 
          legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True, legend_fancybox = False, legend_alpha=1.0, legend_args = {},
          linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
-         callback = None, timeseries_stacked_right_legend_order=True ):
+         callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False ):
 
     # 1. Create and configure plot visual style
     mpl.rcParams.update(mpl.rcParamsDefault)
@@ -87,18 +87,24 @@ def plot(data, path, mode = 'line',
         e = ECDF(s)
         if xscale == 'log':
             x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
-            y = e(x)
+            if CDF_complementary:
+                y = 1-e(x)
+            else:
+                y = e(x)
         else:
-            x = np.linspace(min(s), max(s), NUM_BIN_CDF )
-            y = e(x)
-            # Fix initial point
-            x = np.concatenate( (np.array([min(s)]), x) )
-            y = np.concatenate( (np.array([0]), y) )
+            x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
+            if CDF_complementary:
+                y = 1-e(x)
+                x = np.concatenate( (np.array([min(s)]), x) )
+                y = np.concatenate( (np.array([1]), y) )
+            else:
+                y = e(x)
+                x = np.concatenate( (np.array([min(s)]), x) )
+                y = np.concatenate( (np.array([0]), y) )
 
-        y = e(x)
         plt.plot(x,y, linewidth = linewidth, **plot_args)
         if ylabel is None:
-            ylabel = 'CDF'
+            ylabel = 'CCDF' if CDF_complementary else "CDF"
         if ylim is None:
             ylim = (0,1)
 
@@ -107,13 +113,21 @@ def plot(data, path, mode = 'line',
             e = ECDF(s)
             if xscale == 'log':
                 x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
-                y = e(x)
+                if CDF_complementary:
+                    y = 1-e(x)
+                else:
+                    y = e(x)
             else:
                 x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
-                y = e(x)
-                # Fix initial point
-                x = np.concatenate( (np.array([min(s)]), x) )
-                y = np.concatenate( (np.array([0]), y) )
+
+                if CDF_complementary:
+                    y = 1-e(x)
+                    x = np.concatenate( (np.array([min(s)]), x) )
+                    y = np.concatenate( (np.array([1]), y) )
+                else:
+                    y = e(x)
+                    x = np.concatenate( (np.array([min(s)]), x) )
+                    y = np.concatenate( (np.array([0]), y) )
 
             plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
 

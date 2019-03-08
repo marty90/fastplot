@@ -22,3 +22,6 @@ setup(
 # Upload on pip with:
 # python setup.py sdist
 # twine upload dist/*
+
+# Install locally with:
+# sudo python3 setup.py install
