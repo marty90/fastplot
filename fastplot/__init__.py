@@ -132,7 +132,7 @@ def plot(data, path, mode = 'line',
             plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
 
         if ylabel is None:
-            ylabel = 'CDF'
+            ylabel = 'CCDF' if CDF_complementary else "CDF"
         if ylim is None:
             ylim = (0,1)
 
