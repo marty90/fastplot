@@ -79,7 +79,7 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `data`: the input data to plot
 * `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path. Put it to `None` to have the current `plt` object returned and no file written.
 * `mode`: which type of plot to create (lines, bars, etc.). More details later. Default `line`
-* `plot_args`: an optional dictionary of arguments to pass the `matplotlib` plot() function.
+* `plot_args`: an optional dictionary of arguments to pass the `matplotlib` plot() function. E.g., use `plot_args={"markersize":0.5}` to reduce the marker/point size.
 
 **Look**
 * `style`: which graphical style to use. Can be `serif`, `sans-serif` or `latex`. For latex, it enables matplotlib latex engine. Default `sans-serif`
