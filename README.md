@@ -70,7 +70,13 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `bars_multi`: plot grouped bars. `data` must be a padas dataframe. Each row is results in a group of bars, while columns determine bars within each group.
 * `bars_stacked`: plot stacked bars. `data` must be a padas dataframe. Rows go on x axis, while each column is a level in the bars.
 * `callback`: call a user function instead of plotting `data`. You must provide a function pointer in the `callback` argument, that will be called passing `plt` as paramenter in order to perform a user defined plot. No matter what you put in `data`.
-      
+ 
+  ## Lorenz curve and Gini Index
+`fastplot` provides utility functions to compute Lorenz curve and Gini Index.
+
+To compute Gini index and Lorenz curve for a single set of samples call the `fastplot.lorenz_gini()` function, whose sole arguments is a set of samples. It returns `(lorenz_x, lorenz_y), gini_index`, that you can plot with the mode `line`.
+
+To compute Gini index and Lorenz curve for multiple set of samples, call `fastplot.lorenz_gini_multi()`. It takes as input a list of two-sized tuples like (name, [samples]). It provides as output like: [ (name, ([x1,x2], [y1,y2])), (name, ([x1,x2], [y1,y2]) ) ]. The optional argument `name_format="{} (GI={:0.2f})"` is string format to transform names to include the value of the Gini index. The output of this function can be directly used as input to `fastplot` with mode `line_multi`
 
  ## Arguments
  Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
