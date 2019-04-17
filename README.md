@@ -36,7 +36,7 @@ sudo apt-get install msttcorefonts
 This module has only one function, called `plot`. You must call it to make a plot, providing the data, the output file name, and other parameters.
 * If you provide a `path`, the figure will be saved on disk, and no value returned by the function.
 * If `path` is `None`, the function returns the current `plt` object for further processing or interactive `show()`.
-* Note: if you want to use the `show()` method of matplotlib for interactive view, you must import `matplotlib` before importing `fastplot`, like:
+* Note: if you want to use the `show()` method of matplotlib for interactive view, you must import `matplotlib` and `pyplot` before importing `fastplot`, like:
 ```
 import matplotlib as mpl
 import matplotlib.pyplot as plt
