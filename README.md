@@ -70,16 +70,18 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `bars_multi`: plot grouped bars. `data` must be a padas dataframe. Each row is results in a group of bars, while columns determine bars within each group.
 * `bars_stacked`: plot stacked bars. `data` must be a padas dataframe. Rows go on x axis, while each column is a level in the bars.
 * `callback`: call a user function instead of plotting `data`. You must provide a function pointer in the `callback` argument, that will be called passing `plt` as paramenter in order to perform a user defined plot. No matter what you put in `data`.
- 
-  ## Lorenz curve and Gini Index
+
+Note: you can use `callback` mode to draw data with `seaborn` and profit from all the features of `fastplot`. See the examples.
+
+### Lorenz curve and Gini Index
 `fastplot` provides utility functions to compute Lorenz curve and Gini Index.
 
 To compute Gini index and Lorenz curve for a single set of samples call the `fastplot.lorenz_gini()` function, whose sole arguments is a set of samples. It returns `(lorenz_x, lorenz_y), gini_index`, that you can plot with the mode `line`.
 
 To compute Gini index and Lorenz curve for multiple set of samples, call `fastplot.lorenz_gini_multi()`. It takes as input a list of two-sized tuples like (name, [samples]). It provides as output like: [ (name, ([x1,x2], [y1,y2])), (name, ([x1,x2], [y1,y2]) ) ]. The optional argument `name_format="{} (GI={:0.2f})"` is string format to transform names to include the value of the Gini index. The output of this function can be directly used as input to `fastplot` with mode `line_multi`
 
- ## Arguments
- Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
+## Arguments
+Arguments of the `plot` function are divided in many categories. Only `core` are mandatory.
    
 **Core**
 * `data`: the input data to plot
@@ -300,5 +302,31 @@ fastplot.plot(None,  'examples/11_callback.png', mode = 'callback', callback = m
               style='latex', xlim=(-0.5, 11.5), ylim=(0, 1000))
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/11_callback.png"  height="200">
+
+
+**Lorenz Curves**
+```
+data = [ ('A', np.random.chisquare(2, 1000)), ('B', np.random.chisquare(8, 1000)) ]
+data = fastplot.lorenz_gini_multi(data)
+fastplot.plot(data, 'examples/13_lorenz.png', mode='line_multi', legend=True, grid=True,
+              xlabel = 'Samples [%]', ylabel = 'Share [%]', xlim=(0,1), ylim=(0,1))
+```
+<img src="https://github.com/marty90/fastplot/raw/master/examples/13_lorenz.png"  height="200">
+
+
+**seaborn**
+```
+data = pd.DataFrame([(4,3),(5,4),(4,5),(8,6),(10,8),(3,1),(13,10),(9,7),(11,11)], columns=["x","y"])
+def my_callback(plt):
+     sns.regplot(x="x", y="y", data=data, ax=plt.gca())
+fastplot.plot(None,  'examples/14_seaborn.png', mode = 'callback', callback = my_callback,
+              style='latex', grid=True)
+```
+<img src="https://github.com/marty90/fastplot/raw/master/examples/14_seaborn.png"  height="200">
+
+
+
+
+
 
 

@@ -115,3 +115,26 @@ fastplot.plot(None,  'examples/11_callback.png', mode = 'callback', callback = m
 
 
 
+data = [ ('A', np.random.chisquare(2, 1000)), ('B', np.random.chisquare(8, 1000)) ]
+data = fastplot.lorenz_gini_multi(data)
+fastplot.plot(data, 'examples/13_lorenz.png', mode='line_multi', legend=True, grid=True,
+              xlabel = 'Samples [%]', ylabel = 'Share [%]', xlim=(0,1), ylim=(0,1))
+
+
+import seaborn as sns
+data = pd.DataFrame([(4,3),(5,4),(4,5),(8,6),(10,8),(3,1),(13,10),(9,7),(11,11)], columns=["x","y"])
+def my_callback(plt):
+     sns.regplot(x="x", y="y", data=data, ax=plt.gca())
+fastplot.plot(None,  'examples/14_seaborn.png', mode = 'callback', callback = my_callback,
+              style='latex', grid=True)
+
+
+
+
+
+
+
+
+
+
+
