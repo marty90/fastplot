@@ -41,8 +41,8 @@ This module has only one function, called `plot`. You must call it to make a plo
 import matplotlib.pyplot as plt
 import fastplot
 ```
-In this way, you can run `fastplot` also inside a Jupyter Nontebook:
-<img src="https://github.com/marty90/fastplot/raw/master/examples/jupyter.png"  height="400">
+In this way, you can run `fastplot` also inside a Jupyter Notebook:
+<img src="https://github.com/marty90/fastplot/raw/master/examples/jupyter.png"  height="300">
 
 The most important arguments are:
 * `data`: the actual data to plot
