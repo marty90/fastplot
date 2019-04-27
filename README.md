@@ -23,7 +23,7 @@ Done with https://github.com/ekalinin/github-markdown-toc )
 
 Simply clone this repo or use:
 ```
-pip install git+https://github.com/marty90/fastplot
+pip3 install fastplot
 ```
 
 Dependencies are: `matplotlib numpy pandas statsmodels`. FastPlot requires updated versions of such libraries, so, in case of error try first to upgrade them.
