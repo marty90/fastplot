@@ -53,7 +53,7 @@ The most important arguments are:
     * `serif`: use Times New Roman. Good for IEEE papers. You must have Times New Roman installed.
     * `latex`: tells `matplotlib` to use latex to render text. You must have `latex` installed. FastPlot has a utlity function called `fastplot.tex_escape()` to easily escape Tex strings.
     * Note: if you want to use the Linux Libertine font (e.g., used in ACM papers), you can use the `latex` style and pass the argument `rcParams={'text.latex.preamble'}: r'\usepackage{libertine}'}` to the `fastplot.plot()` function.
-    * Note 2: if you want to use `Times New Roman` with Latex (very good for IEEE papers), you can use the `latex` style and pass the argument `rcParams={'text.latex.preamble'}: r'\usepackage{mathptmx}'}` to the `fastplot.plot()` function.
+    * Note 2: if you want to use `Times New Roman` with Latex (very good for IEEE papers), you can use the `latex` style and pass the argument `rcParams={'text.latex.preamble': r'\usepackage{mathptmx}'}` to the `fastplot.plot()` function.
 
 
 ## Modes
