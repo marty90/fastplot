@@ -44,6 +44,8 @@ import fastplot
 In this way, you can run `fastplot` also inside a Jupyter Notebook:
 <img src="https://github.com/marty90/fastplot/raw/master/examples/jupyter.png"  height="300">
 
+If you want to both `show()` and `savefig()`, please do `savefig()` before, to prevent matplotlib from clearing the figure.
+
 The most important arguments are:
 * `data`: the actual data to plot
 * `path`: the output path for the plot. The format is automatically inferred by matplotlib, looking at the extension of the path. Put it to `None` to have the current `plt` object returned and no file written.
