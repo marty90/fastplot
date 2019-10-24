@@ -1,11 +1,14 @@
 #!/usr/bin/python3
+import matplotlib.pyplot as plt
 
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from cycler import cycler
+import seaborn as sns
 import numpy as np
+import pandas as pd
 import re
 from statsmodels.distributions.empirical_distribution import ECDF
 
@@ -38,6 +41,8 @@ def plot(data, path, mode = 'line',
          xtick_direction = 'in', xtick_width = 1, xtick_length = 3, ytick_direction = 'in', ytick_width = 1, ytick_length = 3, 
          legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True, legend_fancybox = False, legend_alpha=1.0, legend_args = {},
          linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
+         boxplot_numerousness = False, boxplot_numerousness_fontsize = 'x-small',
+         boxplot_palette=sns.color_palette(),
          callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False ):
 
     # 1. Create and configure plot visual style
@@ -139,8 +144,32 @@ def plot(data, path, mode = 'line',
     elif mode == 'boxplot':
         labels = [e[0] for e in data]
         samples = [e[1] for e in data]
-        plt.boxplot(samples, labels=labels, sym=boxplot_sym, whis=boxplot_whis, **plot_args)
+        #plt.boxplot(samples, labels=labels, sym=boxplot_sym, whis=boxplot_whis, **plot_args)
+        
+        #order = sorted(scenario_best["asn"].unique())
+        sns.boxplot(data=samples, whis=boxplot_whis, sym=boxplot_sym, ax=plt.gca(),
+                    palette= boxplot_palette, **plot_args)
+        plt.gca().set_xticklabels(labels)
+        
+        if boxplot_numerousness:
+            for i,label in enumerate(plt.gca().get_xticklabels()):
+                plt.gca().text(i, 1.05, len(samples[i]), horizontalalignment='center',
+                                size=boxplot_numerousness_fontsize,
+                                transform = plt.gca().get_xaxis_transform())
 
+    elif mode == 'boxplot_multi':
+        new_data = []
+        for c in data:
+            for i, l in data[c].iteritems():
+                for e in l:
+                    new_data.append( {"x":i, "y":e, "hue":c })
+        new_data = pd.DataFrame(new_data)
+        p = sns.boxplot(x="x", y="y", hue="hue", data=new_data, whis=boxplot_whis,
+                    sym=boxplot_sym, ax=plt.gca(), palette= boxplot_palette, **plot_args)
+        p.legend().remove()
+        plt.xlabel("")
+        plt.gca().set_xticklabels(data.index)
+        
     elif mode == 'timeseries':
         plt.plot(data, markeredgewidth=0, linewidth = linewidth, **plot_args) 
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
@@ -151,7 +180,7 @@ def plot(data, path, mode = 'line',
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
 
     elif mode == 'timeseries_stacked':
-        plt.stackplot(data.index,  np.transpose(data.as_matrix()), lw=0, labels = data.columns, **plot_args)
+        plt.stackplot(data.index,  np.transpose(data.values), lw=0, labels = data.columns, **plot_args)
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(timeseries_format))
 
     elif mode == 'bars':

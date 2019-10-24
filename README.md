@@ -65,7 +65,8 @@ The modes are the type of plots fastplot allows to use. Some are simple (just a 
 * `line_multi`: plot multiple lines. Data must have the form [ (line1, ([x1,x2], [y1,y2])), (line2, ([x1,x2], [y1,y2]) ) ]. The names `line1` and `line2` are put in the legend.
 * `CDF`: plot a CDF given the samples. `data` must be a list of scalars. Note: if your CDF is too coarse grained, you can increase the resolution increasing `fastplot.NUM_BIN_CDF`.
 * `CDF_multi`: plot many CDFs given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the legend.
-* `boxplot`: plota boxplot given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the xticks labels.
+* `boxplot`: plot a boxplot given the samples. `data` must be a list of two-sized tuples like (name, [samples]). `name` is used in the xticks labels.
+* `boxplot_multi`: plot a boxplot given the samples, clustered in groups. `data` a pandas dataframe, where each cell is a list. A groups are defined by each row, elements of each groups by columns.
 * `timeseries`: plot a time series. `data` must be a pandas series, with a DateTime index.
 * `timeseries_multi`: plot many time series. `data` must be a list of two-sized tuples like (name, timeseries). `name` is used in the legend.
 * `timeseries_stacked`: plot many time series, stacked. `data` must be a pandas dataframe, with a DateTime index. Each column will be plotted stacked to the others. Column names are used in the legend.
@@ -147,6 +148,9 @@ This arguments are specific for some `modes`.
 * `linewidth`: linewidth when lines are used. Default: `1`
 * `boxplot_sym`: symbol for outliers in boxplots. Default `''`
 * `boxplot_whis`: whisker spec for boxplot.  Default `[5,95]`
+* `boxplot_numerousness`: plot the number of samples on the top-x axis.  Default `False`
+* `boxplot_numerousness_fontsize`: size of sample groups labels.  Default `x-small`
+* `boxplot_palette`: palette to be used with seaborn.  Default is seaborn default
 * `timeseries_format`: format for printing dates in timeseries. Default `%Y/%m/%d`
 * `bars_width`: width of bars when bars are plotted. Default `0.6`
 * `callback`: function to call instead of plotting, when `mode=callback`
@@ -224,6 +228,21 @@ data=[ ('A', np.random.normal(100, 30, 1000)),
 fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value')
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/5_boxplot.png"  height="200">
+
+
+
+**boxplot**
+```
+data = pd.DataFrame(data=[ [np.random.normal(100, 30, 50),np.random.normal(110, 30, 50)],
+                           [np.random.normal(90, 30, 50),np.random.normal(90, 30, 50)],
+                           [np.random.normal(90, 30, 50),np.random.normal(80, 30, 50)],
+                           [np.random.normal(80, 30, 50),np.random.normal(80, 30, 50)]],
+                    columns=["Male","Female"], index = ["IT", "FR", "DE", "UK"] )
+fastplot.plot( data,  'examples/5b_boxplot_multi.png', mode='boxplot_multi', ylabel = 'Value',
+               boxplot_palette="muted", legend=True, legend_ncol=2)
+```
+<img src="https://github.com/marty90/fastplot/raw/master/examples/5b_boxplot_multi.png"  height="200">
+
 
 
 **timeseries**

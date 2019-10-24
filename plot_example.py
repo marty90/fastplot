@@ -39,13 +39,21 @@ fastplot.plot(data , 'examples/4_CDF_multi.png', mode='CDF_multi', xlabel = 'Dat
 
 
 
+data=[ ('A', np.random.normal(100, 30, 450)),
+       ('B', np.random.normal(140, 50, 50)),
+       ('C', np.random.normal(140, 50, 200))]
+fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value',
+               boxplot_numerousness=True)
 
-data=[ ('A', np.random.normal(100, 30, 1000)),
-       ('B', np.random.normal(140, 50, 1000)),
-       ('C', np.random.normal(140, 50, 1000))]
-fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value')
 
+data = pd.DataFrame(data=[ [np.random.normal(100, 30, 50),np.random.normal(110, 30, 50)],
+                           [np.random.normal(90, 30, 50),np.random.normal(90, 30, 50)],
+                           [np.random.normal(90, 30, 50),np.random.normal(80, 30, 50)],
+                           [np.random.normal(80, 30, 50),np.random.normal(80, 30, 50)]],
+                    columns=["Male","Female"], index = ["IT", "FR", "DE", "UK"] )
 
+fastplot.plot( data,  'examples/5b_boxplot_multi.png', mode='boxplot_multi', ylabel = 'Value',
+               boxplot_palette="muted", legend=True, legend_ncol=2)
 
 
 
