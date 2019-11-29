@@ -43,7 +43,7 @@ data=[ ('A', np.random.normal(100, 30, 450)),
        ('B', np.random.normal(140, 50, 50)),
        ('C', np.random.normal(140, 50, 200))]
 fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value',
-               boxplot_numerousness=True)
+               boxplot_numerousness=True, boxplot_empty=True)
 
 
 data = pd.DataFrame(data=[ [np.random.normal(100, 30, 50),np.random.normal(110, 30, 50)],
@@ -53,7 +53,7 @@ data = pd.DataFrame(data=[ [np.random.normal(100, 30, 50),np.random.normal(110, 
                     columns=["Male","Female"], index = ["IT", "FR", "DE", "UK"] )
 
 fastplot.plot( data,  'examples/5b_boxplot_multi.png', mode='boxplot_multi', ylabel = 'Value',
-               boxplot_palette="muted", legend=True, legend_ncol=2)
+               boxplot_palette="muted", legend=True, legend_ncol=2, ylim=(0,None))
 
 
 

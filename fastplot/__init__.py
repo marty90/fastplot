@@ -42,7 +42,7 @@ def plot(data, path, mode = 'line',
          legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True, legend_fancybox = False, legend_alpha=1.0, legend_args = {},
          linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
          boxplot_numerousness = False, boxplot_numerousness_fontsize = 'x-small',
-         boxplot_palette=sns.color_palette(),
+         boxplot_palette=sns.color_palette(), boxplot_empty=False,
          callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False ):
 
     # 1. Create and configure plot visual style
@@ -156,6 +156,10 @@ def plot(data, path, mode = 'line',
                 plt.gca().text(i, 1.05, len(samples[i]), horizontalalignment='center',
                                 size=boxplot_numerousness_fontsize,
                                 transform = plt.gca().get_xaxis_transform())
+                                
+        if boxplot_empty:
+            plt.setp(plt.gca().artists, edgecolor = 'k', facecolor='w', linewidth =1)
+            plt.setp(plt.gca().lines, color='k', linewidth =1)
 
     elif mode == 'boxplot_multi':
         new_data = []
@@ -164,7 +168,7 @@ def plot(data, path, mode = 'line',
                 for e in l:
                     new_data.append( {"x":i, "y":e, "hue":c })
         new_data = pd.DataFrame(new_data)
-        p = sns.boxplot(x="x", y="y", hue="hue", data=new_data, whis=boxplot_whis,
+        p = sns.boxplot(x="x", y="y", hue="hue", data=new_data, whis=boxplot_whis, order=data.index,
                     sym=boxplot_sym, ax=plt.gca(), palette= boxplot_palette, **plot_args)
         p.legend().remove()
         plt.xlabel("")

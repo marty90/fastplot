@@ -151,6 +151,7 @@ This arguments are specific for some `modes`.
 * `boxplot_numerousness`: plot the number of samples on the top-x axis.  Default `False`
 * `boxplot_numerousness_fontsize`: size of sample groups labels.  Default `x-small`
 * `boxplot_palette`: palette to be used with seaborn.  Default is seaborn default
+* `boxplot_empyy`: Wether to plot boxplot without filling it.  Default is `False`
 * `timeseries_format`: format for printing dates in timeseries. Default `%Y/%m/%d`
 * `bars_width`: width of bars when bars are plotted. Default `0.6`
 * `callback`: function to call instead of plotting, when `mode=callback`
@@ -225,7 +226,8 @@ fastplot.plot(data , 'examples/4_CDF_multi.png', mode='CDF_multi', xlabel = 'Dat
 data=[ ('A', np.random.normal(100, 30, 1000)),
        ('B', np.random.normal(140, 50, 1000)),
        ('C', np.random.normal(140, 50, 1000))]
-fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value')
+fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value',
+               boxplot_numerousness=True, boxplot_empty=True)
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/5_boxplot.png"  height="200">
 
@@ -239,7 +241,7 @@ data = pd.DataFrame(data=[ [np.random.normal(100, 30, 50),np.random.normal(110, 
                            [np.random.normal(80, 30, 50),np.random.normal(80, 30, 50)]],
                     columns=["Male","Female"], index = ["IT", "FR", "DE", "UK"] )
 fastplot.plot( data,  'examples/5b_boxplot_multi.png', mode='boxplot_multi', ylabel = 'Value',
-               boxplot_palette="muted", legend=True, legend_ncol=2)
+               boxplot_palette="muted", legend=True, legend_ncol=2, ylim=(0,None))
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/5b_boxplot_multi.png"  height="200">
 
