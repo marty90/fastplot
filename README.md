@@ -151,7 +151,7 @@ This arguments are specific for some `modes`.
 * `boxplot_numerousness`: plot the number of samples on the top-x axis.  Default `False`
 * `boxplot_numerousness_fontsize`: size of sample groups labels.  Default `x-small`
 * `boxplot_palette`: palette to be used with seaborn.  Default is seaborn default
-* `boxplot_empyy`: Wether to plot boxplot without filling it.  Default is `False`
+* `boxplot_empty`: Wether to plot boxplot without filling it.  Default is `False`
 * `timeseries_format`: format for printing dates in timeseries. Default `%Y/%m/%d`
 * `bars_width`: width of bars when bars are plotted. Default `0.6`
 * `callback`: function to call instead of plotting, when `mode=callback`
