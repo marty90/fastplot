@@ -41,10 +41,16 @@ This module has only one function, called `plot`. You must call it to make a plo
 import matplotlib.pyplot as plt
 import fastplot
 ```
+
+#### Usage with Jupyter Notebook
 In this way, you can run `fastplot` also inside a Jupyter Notebook:
 <img src="https://github.com/marty90/fastplot/raw/master/examples/jupyter.png"  height="300">
 
-If you want to both `show()` and `savefig()`, please do `savefig()` before, to prevent matplotlib from clearing the figure.
+Note: If you want to both `show()` and `savefig()`, please do `savefig()` before, to prevent matplotlib from clearing the figure.
+
+Note: You may need to add the IPython magic `%matplotlib inline` to be able to visualize inline plots.
+
+#### Basic arguments
 
 The most important arguments are:
 * `data`: the actual data to plot
