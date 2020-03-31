@@ -240,7 +240,7 @@ fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value'
 
 
 
-**boxplot**
+**boxplot_multi**
 ```
 data = pd.DataFrame(data=[ [np.random.normal(100, 30, 50),np.random.normal(110, 30, 50)],
                            [np.random.normal(90, 30, 50),np.random.normal(90, 30, 50)],
