@@ -12,6 +12,10 @@ import pandas as pd
 import re
 from statsmodels.distributions.empirical_distribution import ECDF
 
+# Register Pandas Converters
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
+
 FIGSIZE=(4,2.25)
 NUM_BIN_CDF=1000
 CYCLER_LINES=(cycler('color', ['r', 'b', 'g', 'y', 'c']) +
@@ -42,7 +46,7 @@ def plot(data, path, mode = 'line',
          legend = False, legend_loc = 'best', legend_ncol = 1, legend_fontsize = 'medium', legend_border = False, legend_frameon = True, legend_fancybox = False, legend_alpha=1.0, legend_args = {},
          linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
          boxplot_numerousness = False, boxplot_numerousness_fontsize = 'x-small',
-         boxplot_palette=sns.color_palette(), boxplot_empty=False,
+         boxplot_palette=sns.color_palette(), boxplot_empty=False, boxplot_numerousness_rotate=None,
          callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False ):
 
     # 1. Create and configure plot visual style
@@ -61,6 +65,8 @@ def plot(data, path, mode = 'line',
 
     if style == 'latex':
         plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+        #plt.rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+
         plt.rc('text', usetex=True)
     elif style == 'serif':
         plt.rcParams["font.family"] = "Times New Roman"
@@ -153,9 +159,17 @@ def plot(data, path, mode = 'line',
         
         if boxplot_numerousness:
             for i,label in enumerate(plt.gca().get_xticklabels()):
+
+                args = {}
+                if boxplot_numerousness_rotate is not None:
+                    args = {'rotation' : boxplot_numerousness_rotate,
+                            'ha' : 'left' if boxplot_numerousness_rotate > 0 else 'right',
+                            'va': 'bottom'}
+
                 plt.gca().text(i, 1.05, len(samples[i]), horizontalalignment='center',
                                 size=boxplot_numerousness_fontsize,
-                                transform = plt.gca().get_xaxis_transform())
+                                transform = plt.gca().get_xaxis_transform(),
+                                **args)
                                 
         if boxplot_empty:
             plt.setp(plt.gca().artists, edgecolor = 'k', facecolor='w', linewidth =1)

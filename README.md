@@ -157,6 +157,7 @@ This arguments are specific for some `modes`.
 * `boxplot_whis`: whisker spec for boxplot.  Default `[5,95]`
 * `boxplot_numerousness`: plot the number of samples on the top-x axis.  Default `False`
 * `boxplot_numerousness_fontsize`: size of sample groups labels.  Default `x-small`
+* `boxplot_numerousness_rotate`: rotation for numerousness text.  Default `0`
 * `boxplot_palette`: palette to be used with seaborn.  Default is seaborn default
 * `boxplot_empty`: Wether to plot boxplot without filling it.  Default is `False`
 * `timeseries_format`: format for printing dates in timeseries. Default `%Y/%m/%d`
@@ -230,11 +231,11 @@ fastplot.plot(data , 'examples/4_CDF_multi.png', mode='CDF_multi', xlabel = 'Dat
 
 **boxplot**
 ```
-data=[ ('A', np.random.normal(100, 30, 1000)),
-       ('B', np.random.normal(140, 50, 1000)),
-       ('C', np.random.normal(140, 50, 1000))]
+data=[ ('A', np.random.normal(100, 30, 450)),
+       ('B', np.random.normal(140, 50, 50)),
+       ('C', np.random.normal(140, 50, 200))]
 fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value',
-               boxplot_numerousness=True, boxplot_empty=True)
+               boxplot_numerousness=True, boxplot_empty=True, boxplot_numerousness_rotate=90)
 ```
 <img src="https://github.com/marty90/fastplot/raw/master/examples/5_boxplot.png"  height="200">
 

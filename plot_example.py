@@ -1,9 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import fastplot
 import numpy as np
 import pandas as pd
-
 
 
 x = range(11)
@@ -43,7 +42,7 @@ data=[ ('A', np.random.normal(100, 30, 450)),
        ('B', np.random.normal(140, 50, 50)),
        ('C', np.random.normal(140, 50, 200))]
 fastplot.plot( data,  'examples/5_boxplot.png', mode='boxplot', ylabel = 'Value',
-               boxplot_numerousness=True, boxplot_empty=True)
+               boxplot_numerousness=True, boxplot_empty=True, boxplot_numerousness_rotate=90)
 
 
 data = pd.DataFrame(data=[ [np.random.normal(100, 30, 50),np.random.normal(110, 30, 50)],
