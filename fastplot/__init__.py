@@ -18,12 +18,12 @@ register_matplotlib_converters()
 
 FIGSIZE=(4,2.25)
 NUM_BIN_CDF=1000
-CYCLER_LINES=(cycler('color', ['r', 'b', 'g', 'y', 'c']) +
+CYCLER_LINES=(cycler('color', ['r', 'b', 'g', 'purple', 'c']) +
               cycler('linestyle', ['-', '--', '-.', ':', (0, (3, 1, 1, 1)) ]))
-CYCLER_LINESPOINTS=(cycler('color', ['r', 'b', 'g', 'y', 'c']) +
+CYCLER_LINESPOINTS=(cycler('color', ['r', 'b', 'g', 'purple', 'c']) +
                     cycler('linestyle', ['-', '--', '-.', ':', (0, (3, 1, 1, 1)) ]) +
                     cycler('marker', ['o', 's', 'v', 'd', '^' ]))
-CYCLER_POINTS=(cycler('color', ['r', 'b', 'g', 'y', 'c']) +
+CYCLER_POINTS=(cycler('color', ['r', 'b', 'g', 'purple', 'c']) +
                cycler('linestyle', ['', '', '', '', '']) +
                cycler('marker', ['o', 's', 'v', 'd', '^' ]))
 
