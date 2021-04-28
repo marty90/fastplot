@@ -47,6 +47,10 @@ In this way, you can run `fastplot` also inside a Jupyter Notebook:
 <img src="https://github.com/marty90/fastplot/raw/master/examples/jupyter.png"  height="300">
 
 Note: If you want to both `show()` and `savefig()`, please do `savefig()` before, to prevent matplotlib from clearing the figure.
+See the following example.
+
+<img src="https://github.com/marty90/fastplot/raw/master/examples/jupyter-2.png"  height="260">
+
 
 Note: You may need to add the IPython magic `%matplotlib inline` to be able to visualize inline plots.
 
