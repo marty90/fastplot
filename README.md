@@ -142,7 +142,10 @@ Arguments of the `plot` function are divided in many categories. Only `core` are
 * `ytick_direction`:  ytick marker direction. Default 'in'
 * `ytick_width`: yticks marker width. Default `1`
 * `ytick_length`:  yticks marker length. Default `4` 
-         
+* `vlines`: plot vertical line on the chart. Can be also a list of values (lines).
+* `hlines`: plot horizontal line on the chart. Can be also a list of values (lines).
+* `vlines_style`: set the style for vlines e.g {"color" : "red", "linestyle" : "--"}. Default dict empty.
+* `hlines_style`: set the style for hlines e.g {"color" : "red", "linestyle" : "--"}. Default dict empty.         
 **Legend**
 * `legend`: whether to show the legend. Default `False`
 * `legend_loc`: location for legend. Default `best`
