@@ -47,7 +47,7 @@ def plot(data, path, mode = 'line',
          linewidth = 1, boxplot_sym='', boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
          boxplot_numerousness = False, boxplot_numerousness_fontsize = 'x-small',
          boxplot_palette=sns.color_palette(), boxplot_empty=False, boxplot_numerousness_rotate=None,
-         callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False ):
+         callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False, vlines=None, hlines=None, vlines_style={}, hlines_style={}):
 
     # 1. Create and configure plot visual style
     mpl.rcParams.update(mpl.rcParamsDefault)
@@ -272,7 +272,18 @@ def plot(data, path, mode = 'line',
     # Tick marker params
     plt.tick_params(axis = 'x', direction = xtick_direction, width = xtick_width, length = xtick_length )
     plt.tick_params(axis = 'y', direction = ytick_direction, width = ytick_width, length = ytick_length )
-
+    # Vertical and Orizzontal lines:
+    if vlines:
+        if not isinstance(vlines,list):
+            vlines=[vlines]
+        for x in vlines:
+            plt.axvline(x, **vlines_style)
+    if hlines:
+        if not isinstance(hlines,list):
+            vlines=[vlines]
+        for x in hlines:
+            plt.axhline(x, **hlines_style)
+        
     # 5. Legend
     if legend:
         legend = plt.legend(loc=legend_loc, ncol = legend_ncol, fontsize = legend_fontsize,
@@ -353,3 +364,4 @@ def lorenz_gini_multi(data, name_format="{} (GI={:0.2f})"):
         data_new.append( (name_new, (lorenz_x,lorenz_y) )   )
     return data_new
   
+
