@@ -50,7 +50,9 @@ def plot(data, path, mode = 'line',
          callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False, vlines=None, hlines=None, vlines_style={}, hlines_style={}):
 
     # 1. Create and configure plot visual style
-    mpl.rcParams.update(mpl.rcParamsDefault)
+    plt.rcParams.update(plt.rcParamsDefault)
+    plt.rcParams["interactive"]=True
+    
     plt.clf()
     plt.figure(figsize=figsize)
 
