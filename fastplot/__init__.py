@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 import matplotlib.pyplot as plt
-
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from cycler import cycler
+from itertools import cycle
 import seaborn as sns
 import numpy as np
 import pandas as pd
@@ -216,7 +216,7 @@ def plot(data, path, mode = 'line',
         num_rows = len(data.index)
         num_columns = len(data.columns)
         bars_width_real=bars_width/num_columns
-        prop_iter = iter(plt.rcParams['axes.prop_cycle'])
+        prop_iter = cycle(plt.rcParams['axes.prop_cycle'])
         for i, column in enumerate( data ):
             delta = -bars_width/2 + i*bars_width_real + bars_width_real/2
             plt.bar( [e + delta for e in range(num_rows)], list(data[column]), linewidth = linewidth,
@@ -229,7 +229,7 @@ def plot(data, path, mode = 'line',
         xticks_labels_from_data = list(data.index)
         num_rows = len(data.index)
         num_columns = len(data.columns)
-        prop_iter = iter(plt.rcParams['axes.prop_cycle'])
+        prop_iter = cycle(plt.rcParams['axes.prop_cycle'])
         bottom = np.zeros(num_rows)
         for i, column in enumerate( data ):
             plt.bar(range(num_rows), list(data[column]), bottom=bottom, linewidth = linewidth,
