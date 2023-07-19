@@ -180,7 +180,7 @@ def plot(data, path, mode = 'line',
     elif mode == 'boxplot_multi':
         new_data = []
         for c in data:
-            for i, l in data[c].iteritems():
+            for i, l in data[c].items():
                 for e in l:
                     new_data.append( {"x":i, "y":e, "hue":c })
         new_data = pd.DataFrame(new_data)
