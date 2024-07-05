@@ -174,8 +174,8 @@ def plot(data, path, mode = 'line',
                                 **args)
                                 
         if boxplot_empty:
-            plt.setp(plt.gca().artists, edgecolor = 'k', facecolor='w', linewidth =1)
-            plt.setp(plt.gca().lines, color='k', linewidth =1)
+            plt.setp(plt.gca().patches, edgecolor = 'black', facecolor='white', linewidth =1)
+            plt.setp(plt.gca().lines, color='black', linewidth =1)
 
     elif mode == 'boxplot_multi':
         new_data = []
