@@ -47,7 +47,7 @@ def plot(data, path, mode = 'line',
          linewidth = 1, boxplot_whis=[5,95], timeseries_format='%Y/%m/%d', bars_width=0.6,
          boxplot_numerousness = False, boxplot_numerousness_fontsize = 'x-small', boxplot_fliersize=0,
          boxplot_palette=sns.color_palette(), boxplot_empty=False, boxplot_numerousness_rotate=None,
-         callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False, vlines=None, hlines=None, vlines_style={}, hlines_style={}):
+         callback = None, timeseries_stacked_right_legend_order=True, CDF_complementary=False, vlines=None, hlines=None, vlines_style={}, hlines_style={}, stats=None):
 
     # 1. Create and configure plot visual style
     plt.rcParams.update(plt.rcParamsDefault)
@@ -121,6 +121,11 @@ def plot(data, path, mode = 'line',
         if ylim is None:
             ylim = (0,1)
 
+        if isinstance(stats, dict):
+            clear_dict(stats)
+            for k, v in get_distribution_stats(data).items():
+                stats[k] = v
+
     elif mode == 'CDF_multi':
         for s_name, s in data :
             e = ECDF(s)
@@ -148,6 +153,13 @@ def plot(data, path, mode = 'line',
             ylabel = 'CCDF' if CDF_complementary else "CDF"
         if ylim is None:
             ylim = (0,1)
+
+        if isinstance(stats, dict):
+            clear_dict(stats)
+            for name, samples in data:
+                stats[name] = {}
+                for k, v in get_distribution_stats(samples).items():
+                    stats[name][k] = v
 
     elif mode == 'boxplot':
         labels = [e[0] for e in data]
@@ -177,6 +189,13 @@ def plot(data, path, mode = 'line',
             plt.setp(plt.gca().patches, edgecolor = 'black', facecolor='white', linewidth =1)
             plt.setp(plt.gca().lines, color='black', linewidth =1)
 
+        if isinstance(stats, dict):
+            clear_dict(stats)
+            for name, samples in data:
+                stats[name] = {}
+                for k, v in get_distribution_stats(samples).items():
+                    stats[name][k] = v
+
     elif mode == 'boxplot_multi':
         new_data = []
         for c in data:
@@ -189,6 +208,13 @@ def plot(data, path, mode = 'line',
         p.legend().remove()
         plt.xlabel("")
         plt.gca().set_xticklabels(data.index)
+
+        if isinstance(stats, dict):
+            clear_dict(stats)
+            for c in data:
+                stats[c] = {}
+                for index, values in data[c].items():
+                    stats[c][index] = get_distribution_stats(values)
         
     elif mode == 'timeseries':
         plt.plot(data, markeredgewidth=0, linewidth = linewidth, **plot_args) 
@@ -339,6 +365,22 @@ def tex_escape(text):
     }
     regex = re.compile('|'.join(re.escape(str(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
     return regex.sub(lambda match: conv[match.group()], text)
+
+
+def get_distribution_stats(data):
+    stats = {}
+    stats['min'] = np.min(data)
+    stats['q1'] = np.percentile(data, 25)
+    stats['median'] = np.median(data)
+    stats['q3'] = np.percentile(data, 75)
+    stats['max'] = np.max(data)
+    stats['mean'] = np.mean(data)
+    stats['std'] = np.std(data)
+    return stats
+
+def clear_dict(d):
+    for k in list(d.keys()):
+        del d[k]
 
 def gini(arr):
     count = arr.size
