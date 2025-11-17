@@ -10,7 +10,11 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 import re
+from packaging import version
 from statsmodels.distributions.empirical_distribution import ECDF
+
+MPL_VERSION = mpl.__version__
+HAS_ECDF_PLOT = version.parse(MPL_VERSION) >= version.parse('3.8.0')  # 3.8.0 was released in September 2023
 
 # Register Pandas Converters
 from pandas.plotting import register_matplotlib_converters
@@ -96,26 +100,31 @@ def plot(data, path, mode = 'line',
         plt.plot(data[0], data[1], markeredgewidth=0, linewidth = linewidth, **plot_args) 
 
     elif mode == 'CDF':
-        s = data
-        e = ECDF(s)
-        if xscale == 'log':
-            x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
-            if CDF_complementary:
-                y = 1-e(x)
-            else:
-                y = e(x)
+        if HAS_ECDF_PLOT:
+            # Use plt.ecdf for matplotlib 3.8+
+            plt.ecdf(data, complementary=CDF_complementary, linewidth=linewidth, **plot_args)
         else:
-            x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
-            if CDF_complementary:
-                y = 1-e(x)
-                x = np.concatenate( (np.array([min(s)]), x) )
-                y = np.concatenate( (np.array([1]), y) )
+            # Fallback to statsmodels for older matplotlib versions
+            s = data
+            e = ECDF(s)
+            if xscale == 'log':
+                x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
+                if CDF_complementary:
+                    y = 1-e(x)
+                else:
+                    y = e(x)
             else:
-                y = e(x)
-                x = np.concatenate( (np.array([min(s)]), x) )
-                y = np.concatenate( (np.array([0]), y) )
+                x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
+                if CDF_complementary:
+                    y = 1-e(x)
+                    x = np.concatenate( (np.array([min(s)]), x) )
+                    y = np.concatenate( (np.array([1]), y) )
+                else:
+                    y = e(x)
+                    x = np.concatenate( (np.array([min(s)]), x) )
+                    y = np.concatenate( (np.array([0]), y) )
 
-        plt.plot(x,y, linewidth = linewidth, **plot_args)
+            plt.plot(x,y, linewidth = linewidth, **plot_args)
         if ylabel is None:
             ylabel = 'CCDF' if CDF_complementary else "CDF"
         if ylim is None:
@@ -127,27 +136,32 @@ def plot(data, path, mode = 'line',
                 stats[k] = v
 
     elif mode == 'CDF_multi':
-        for s_name, s in data :
-            e = ECDF(s)
-            if xscale == 'log':
-                x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
-                if CDF_complementary:
-                    y = 1-e(x)
-                else:
-                    y = e(x)
+        for s_name, s in data:
+            if HAS_ECDF_PLOT:
+                # Use plt.ecdf for matplotlib 3.8+
+                plt.ecdf(s, label=s_name, complementary=CDF_complementary, linewidth=linewidth, **plot_args)
             else:
-                x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
-
-                if CDF_complementary:
-                    y = 1-e(x)
-                    x = np.concatenate( (np.array([min(s)]), x) )
-                    y = np.concatenate( (np.array([1]), y) )
+                # Fallback for older matplotlib versions
+                e = ECDF(s)
+                if xscale == 'log':
+                    x = np.logspace(np.log10(min(s)), np.log10(max(s)), NUM_BIN_CDF )
+                    if CDF_complementary:
+                        y = 1-e(x)
+                    else:
+                        y = e(x)
                 else:
-                    y = e(x)
-                    x = np.concatenate( (np.array([min(s)]), x) )
-                    y = np.concatenate( (np.array([0]), y) )
+                    x = np.linspace(min(s), max(s), NUM_BIN_CDF )  
 
-            plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
+                    if CDF_complementary:
+                        y = 1-e(x)
+                        x = np.concatenate( (np.array([min(s)]), x) )
+                        y = np.concatenate( (np.array([1]), y) )
+                    else:
+                        y = e(x)
+                        x = np.concatenate( (np.array([min(s)]), x) )
+                        y = np.concatenate( (np.array([0]), y) )
+
+                plt.plot(x,y, label=s_name, linewidth = linewidth, **plot_args)
 
         if ylabel is None:
             ylabel = 'CCDF' if CDF_complementary else "CDF"
@@ -408,4 +422,3 @@ def lorenz_gini_multi(data, name_format="{} (GI={:0.2f})"):
         data_new.append( (name_new, (lorenz_x,lorenz_y) )   )
     return data_new
   
-

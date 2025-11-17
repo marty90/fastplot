@@ -16,7 +16,7 @@ setup(
     url="https://github.com/marty90/fastplot",
     download_url = 'https://github.com/marty90/fastplot/tarball/1.5.0',
     packages=['fastplot'],
-    install_requires=['matplotlib', 'numpy', 'pandas', 'statsmodels', 'scipy', 'seaborn']
+    install_requires=['matplotlib', 'numpy', 'pandas', 'statsmodels', 'scipy', 'seaborn', 'packaging']
 )
 
 # Upload on pip with:
